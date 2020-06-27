@@ -5,6 +5,11 @@
 #ifndef STORAGE_LEVELDB_DB_DB_IMPL_H_
 #define STORAGE_LEVELDB_DB_DB_IMPL_H_
 
+#define BOOST_EXCEPTION_DISABLE
+#define BOOST_NO_EXCEPTIONS
+#define BOOST_NO_RTTI
+#define BOOST_NO_TYPEID
+
 #include <atomic>
 #include <deque>
 #include <set>

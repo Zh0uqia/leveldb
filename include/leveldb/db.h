@@ -53,6 +53,9 @@ class LEVELDB_EXPORT DB {
   static Status Open(const Options& options, const std::string& name,
                      DB** dbptr);
 
+  // Attach to master by specifying the name of shared memory object 
+  static Status AttachToMaster();
+  
   DB() = default;
 
   DB(const DB&) = delete;
@@ -145,6 +148,7 @@ class LEVELDB_EXPORT DB {
   // Therefore the following call will compact the entire database:
   //    db->CompactRange(nullptr, nullptr);
   virtual void CompactRange(const Slice* begin, const Slice* end) = 0;
+
 };
 
 // Destroy the contents of the specified database.

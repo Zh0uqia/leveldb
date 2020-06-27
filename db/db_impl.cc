@@ -1,7 +1,7 @@
 // Copyright (c) 2011 The LevelDB Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file. See the AUTHORS file for names of contributors.
-
+#include <iostream>
 #include "db/db_impl.h"
 
 #include <algorithm>
@@ -34,6 +34,7 @@
 #include "util/coding.h"
 #include "util/logging.h"
 #include "util/mutexlock.h"
+#include <third_party/boost/interprocess/managed_shared_memory.hpp>
 
 namespace leveldb {
 
@@ -1512,6 +1513,13 @@ Status DB::Open(const Options& options, const std::string& dbname, DB** dbptr) {
   if (s.ok()) {
     assert(impl->mem_ != nullptr);
     *dbptr = impl;
+
+    // if open as the master node 
+    // if (master){
+    // create shared memory to communicate with slave processes
+    boost::interprocess::managed_shared_memory segment(create_only, "Master1", 65536);
+    std::cout << "Created shared memory" << std::endl;
+    // }
   } else {
     delete impl;
   }
